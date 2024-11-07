@@ -1,30 +1,3 @@
 * {
   margin-top: 1%;
 }
-
-.card.card {
-  text-align: left;
-  border: none;
-}
-
-.card .card-subtitle {
-  color: grey;
-  font-size: 1em;
-  margin-bottom: 0.5em;
-}
-.card-price {
-  color: brown;
-  font-weight: bold;
-}
-.card-imagen {
-  border-radius: 5%;
-}
-
-.btn-cart {
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 60px;
-  width: 10em;
-  align-items: center;
-  justify-content: center;
-}

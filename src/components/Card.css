@@ -1,0 +1,57 @@
+.card-contenedor {
+  box-sizing: border-box;
+  color: rgb(33, 37, 41);
+  display: flex;
+  flex-wrap: wrap;
+  font-family: system-ui;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 0;
+  margin-left: 3px;
+  justify-content: space-between;
+}
+
+/* Tarjeta */
+.card.card {
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  align-items: left;
+  border: none;
+  width: 100%;
+  background-color: rgba(252, 248, 245, 255);
+}
+
+.card-subtitle {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+.card-price {
+  color: rgb(243, 11, 11);
+  font-weight: bold;
+}
+
+.card-imagen {
+  border-radius: 5%;
+}
+
+/* Botones de la tarjeta */
+.btn-cart {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 60px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.card-botones {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}

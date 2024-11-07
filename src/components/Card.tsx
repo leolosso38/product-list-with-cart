@@ -1,56 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-interface CardProps {
-  id: number;
-  image: string;
+interface ICardProps {
+  imagen: string;
   titulo: string;
-  subtitle: string;
-  price: number;
-  onAddTocart: (cantidad: number) => void;
+  subtitulo: string;
+  precio: number;
+  onAddToCart: (cantidad: number) => void;
 }
 
-function Card({ id, image, titulo, subtitle, price, onAddTocart }: CardProps) {
-  const [inCart, setInCart] = useState(false);
-  const [cantidad, setCantidad] = useState(1); // Comienza en 1
+function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: ICardProps) {
+  const [enCarrito, setEnCarrito] = useState(false);
+  const [cantidad, setCantidad] = useState(1);
 
-  const sumarCarrito = () => {
-    setInCart(true);
-    setCantidad(1); // Inicializa la cantidad en 1 cuando se agrega al carrito
-    onAddTocart(1); // Inicializa la cantidad en el carrito
+  // Función para agregar al carrito
+  const agregarAlCarrito = () => {
+    setEnCarrito(true);
+    // Llamamos a `onAddToCart` fuera del ciclo de renderizado
+    onAddToCart(cantidad);
   };
-  // item: { id: number; titulo: string; price: number; amount: number },
-  // quantity: number
+
+  // Función para incrementar la cantidad
   const incrementar = () => {
-    setCantidad((prev) => {
-      const newQuantity = prev + 1;
-      console.log("Cantidad Incrementada: ", newQuantity);
-      onAddTocart(id, newQuantity);
-      return newQuantity;
+    setCantidad((cantidadActual) => {
+      const nuevaCantidad = cantidadActual + 1;
+      return nuevaCantidad;
     });
   };
 
-  const decremento = () => {
-    setCantidad((prev) => {
-      if (prev > 1) {
-        const newQuantity = prev - 1;
-        console.log("Cantidad Decrementada: ", newQuantity);
-        onAddTocart(newQuantity);
-        return newQuantity;
-      } else {
-        setInCart(false);
-        onAddTocart(0);
-        console.log("Producto Eliminado del Carrito");
-        return 1;
-      }
+  // Función para disminuir la cantidad de la tarjeta
+  const disminuir = () => {
+    setCantidad((cantidadActual) => {
+      const nuevaCantidad = Math.max(cantidadActual - 1, 1);
+      return nuevaCantidad;
     });
   };
+
+  // Llamamos a `onAddToCart` solo cuando la cantidad cambie
+  useEffect(() => {
+    if (enCarrito) {
+      onAddToCart(cantidad); // Actualiza el carrito con la nueva cantidad
+    }
+  }, [cantidad, enCarrito]); // Se ejecuta cuando `cantidad` cambie
 
   return (
     <div className="card">
-      <img className="card-imagen" src={image} alt="producto" />
-      {inCart ? (
-        <div>
-          <button className="btn-cart-decremento" onClick={decremento}>
+      <img className="card-imagen" src={imagen} alt="producto" />
+      {enCarrito ? (
+        <div className="card-botones">
+          <button className="btn-cart-decremento" onClick={disminuir}>
             -
           </button>
           <span>{cantidad}</span>
@@ -59,15 +56,15 @@ function Card({ id, image, titulo, subtitle, price, onAddTocart }: CardProps) {
           </button>
         </div>
       ) : (
-        <button className="btn-cart" onClick={sumarCarrito}>
-          Add to Cart
+        <button className="btn-cart" onClick={agregarAlCarrito}>
+          Agregar al Carrito
         </button>
       )}
 
       <div className="card-body">
-        <h5 className="card-subtitle">{subtitle}</h5>
-        <h5 className="card-title">{titulo}</h5>
-        <h5 className="card-price">$ {price.toFixed(2)}</h5>
+        <h5 className="card-subtitulo">{subtitulo}</h5>
+        <h5 className="card-titulo">{titulo}</h5>
+        <h5 className="card-precio">$ {precio.toFixed(2)}</h5>
       </div>
     </div>
   );
