@@ -22,13 +22,14 @@
   background-color: rgba(252, 248, 245, 255);
 }
 
-.card-subtitle {
+.card-subtitulo {
   font-size: 1em;
   margin-bottom: 0.5em;
+  color: grey;
 }
 
-.card-price {
-  color: rgb(243, 11, 11);
+.card-precio {
+  color: rgb(173, 5, 5);
   font-weight: bold;
 }
 
@@ -40,8 +41,9 @@
 .btn-cart {
   display: flex;
   flex-wrap: wrap;
+  margin-left: 2.5em;
   border-radius: 60px;
-  width: 100%;
+  width: 70%;
   align-items: center;
   justify-content: center;
   margin-top: 10px;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface ICardProps {
   imagen: string;
@@ -15,48 +15,62 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: ICardProps) {
   // Función para agregar al carrito
   const agregarAlCarrito = () => {
     setEnCarrito(true);
-    // Llamamos a `onAddToCart` fuera del ciclo de renderizado
     onAddToCart(cantidad);
+    // Llamada al callback para agregar al carrito
   };
 
   // Función para incrementar la cantidad
   const incrementar = () => {
-    setCantidad((cantidadActual) => {
-      const nuevaCantidad = cantidadActual + 1;
+    setCantidad((cantidad) => {
+      const nuevaCantidad = cantidad + 1;
+
+      console.log(nuevaCantidad);
       return nuevaCantidad;
     });
+    onAddToCart(cantidad);
+    // Llamamos a `onAddToCart` fuera de `setCantidad`
   };
 
   // Función para disminuir la cantidad de la tarjeta
   const disminuir = () => {
     setCantidad((cantidadActual) => {
-      const nuevaCantidad = Math.max(cantidadActual - 1, 1);
+      const nuevaCantidad = Math.max(cantidadActual - 2, 1);
+      console.log(nuevaCantidad);
       return nuevaCantidad;
     });
-  };
-
-  // Llamamos a `onAddToCart` solo cuando la cantidad cambie
-  useEffect(() => {
-    if (enCarrito) {
-      onAddToCart(cantidad); // Actualiza el carrito con la nueva cantidad
+    onAddToCart(cantidad - 1);
+    // Llamamos a `onAddToCart` fuera de `setCantidad`
+    if (cantidad > 1) {
+      onAddToCart(cantidad - 1);
+    } else {
+      setEnCarrito(false);
     }
-  }, [cantidad, enCarrito]); // Se ejecuta cuando `cantidad` cambie
+  };
 
   return (
     <div className="card">
       <img className="card-imagen" src={imagen} alt="producto" />
       {enCarrito ? (
         <div className="card-botones">
-          <button className="btn-cart-decremento" onClick={disminuir}>
+          <button
+            className="btn-cart-decremento btn btn-outline-danger btn-sm"
+            onClick={disminuir}
+          >
             -
           </button>
           <span>{cantidad}</span>
-          <button className="btn-cart-incremento" onClick={incrementar}>
+          <button
+            className="btn-cart-incremento btn btn-outline-danger btn-sm"
+            onClick={incrementar}
+          >
             +
           </button>
         </div>
       ) : (
-        <button className="btn-cart" onClick={agregarAlCarrito}>
+        <button
+          className="btn-cart  btn btn-danger btn-sm"
+          onClick={agregarAlCarrito}
+        >
           Agregar al Carrito
         </button>
       )}

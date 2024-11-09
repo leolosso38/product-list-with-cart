@@ -2,8 +2,8 @@
 .carrito-container {
   position: absolute; /* Fijo el carrito en la pantalla.*/
   top: 2.5em; /* Ajusto la distancia desde la parte superior de la pantalla */
-  right: 10em; /* Ajusto la distancia desde la parte derecha */
-  width: 30em; /* Ancho del carrito */
+  right: 5em; /* Ajusto la distancia desde la parte derecha */
+  width: 100%; /* Ancho del carrito */
   padding: 20px;
   background-color: rgba(255, 255, 255, 255);
   border: 10%;
@@ -23,7 +23,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-  padding: 10px;
+
   margin-bottom: 10px;
 }
 
@@ -44,8 +44,12 @@
 .carrito-total,
 .carrito-precio {
   display: inline;
-  margin-right: 2em;
+  margin-right: 1em;
 }
 .carrito-total {
   font-size: 15px;
+}
+
+.carrito-cantidades {
+  display: inline;
 }
