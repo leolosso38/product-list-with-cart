@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-interface ICardProps {
+interface CardProps {
   imagen: string;
   titulo: string;
   subtitulo: string;
@@ -8,7 +8,7 @@ interface ICardProps {
   onAddToCart: (cantidad: number) => void;
 }
 
-function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: ICardProps) {
+function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
   const [enCarrito, setEnCarrito] = useState(false);
   const [cantidad, setCantidad] = useState(1);
 

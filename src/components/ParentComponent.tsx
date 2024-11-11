@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { productos } from "./Productos"; // Asegúrate de que la ruta sea correcta
+import { productos } from "../Productos"; // Asegúrate de que la ruta sea correcta
 import Carrito from "./Carrito"; // Asegúrate de que la ruta sea correcta
 import Card from "./Card"; // Asegúrate de que la ruta sea correcta
 
 // Definición de la interfaz para los artículos del carrito
-interface ArticuloCarrito {
+type ArticuloCarrito = {
   id: number;
   titulo: string;
   cantidad: number;
   precio: number;
-}
+};
 
-function ComponentePrincipal() {
+function ParentComponent() {
   // Estado para almacenar los artículos en el carrito y el total
   const [articulosCarrito, setArticulosCarrito] = useState<ArticuloCarrito[]>(
     []
@@ -92,20 +92,20 @@ function ComponentePrincipal() {
         eliminarDelCarrito={eliminarDelCarrito}
       />
       <div className="row">
-        {productos.map((producto) => (
-          <div key={producto.id} className="card-contenedor col-md-3 mb-1">
+        {productos.map(({ id, src, titulo, subtitle, price }) => (
+          <div key={id} className="card-contenedor col-md-3 mb-1">
             {/* Renderizamos las tarjetas de productos */}
             <Card
-              imagen={producto.src}
-              titulo={producto.titulo}
-              subtitulo={producto.subtitle}
-              precio={producto.price}
+              imagen={src}
+              titulo={titulo}
+              subtitulo={subtitle}
+              precio={price}
               onAddToCart={(cantidad: number) =>
                 agregarAlCarrito(
                   {
-                    id: producto.id,
-                    titulo: producto.titulo,
-                    precio: producto.price,
+                    id: id,
+                    titulo: titulo,
+                    precio: price,
                   },
                   cantidad
                 )
@@ -118,4 +118,4 @@ function ComponentePrincipal() {
   );
 }
 
-export default ComponentePrincipal;
+export default ParentComponent;

@@ -1,21 +1,21 @@
 import imagenCarrito from "../assets/images/illustration-empty-cart.svg";
 
 // Definición de la interfaz para los artículos del carrito
-interface IArticuloCarrito {
+type ArticuloCarrito = {
   id: number;
   titulo: string;
   cantidad: number;
   precio: number;
-}
+};
 
 // Definición de las propiedades del componente Carrito
-interface ICarritoProps {
-  articulos: IArticuloCarrito[]; // Lista de artículos en el carrito
+type Props = {
+  articulos: ArticuloCarrito[]; // Lista de artículos en el carrito
   total: number; // Total acumulado de la compra
   eliminarDelCarrito: (id: number) => void; // Función para eliminar un artículo del carrito
-}
+};
 
-function Carrito({ articulos, total, eliminarDelCarrito }: ICarritoProps) {
+function Carrito({ articulos, total, eliminarDelCarrito }: Props) {
   return (
     <div className="carrito-container col-md-2 mb-1">
       <div className="carrito card mb-2">
@@ -30,26 +30,25 @@ function Carrito({ articulos, total, eliminarDelCarrito }: ICarritoProps) {
           ) : (
             <div>
               <ul className="carrito-list list-group">
-                {articulos.map((articulo) => (
+                {articulos.map(({ id, titulo, cantidad, precio }) => (
                   <li
-                    key={articulo.id}
+                    key={id}
                     className="carrito-item list-group-item d-flex justify-content-between align-items-center"
                   >
                     <div>
-                      <strong>{articulo.titulo}</strong>
+                      <strong>{titulo}</strong>
                       <div>
-                        {articulo.cantidad} &times; @
-                        {articulo.precio.toFixed(2)}
+                        {cantidad} &times; @{precio.toFixed(2)}
                       </div>
                     </div>
                     <span className="carrito badge bg-secondary rounded-pill">
-                      ${articulo.precio * articulo.cantidad}
+                      ${precio * cantidad}
                     </span>
 
                     {/* Botón para eliminar el artículo */}
                     <button
                       className="btn btn-outline-danger btn-sm"
-                      onClick={() => eliminarDelCarrito(articulo.id)}
+                      onClick={() => eliminarDelCarrito(id)}
                       style={{ marginLeft: "10px", fontSize: "16px" }}
                     >
                       &times; {/* El carácter '×' representa la cruz */}
