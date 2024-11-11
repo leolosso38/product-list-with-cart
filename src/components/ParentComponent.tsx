@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { productos } from "../Productos"; // Asegúrate de que la ruta sea correcta
-import Carrito from "./Carrito"; // Asegúrate de que la ruta sea correcta
-import Card from "./Card"; // Asegúrate de que la ruta sea correcta
+import { productos } from "../Productos";
+import Carrito from "./Carrito";
+import Card from "./Card";
 
 // Definición de la interfaz para los artículos del carrito
 type ArticuloCarrito = {
@@ -18,7 +18,6 @@ function ParentComponent() {
   ); // Lista de artículos en el carrito
   const [total, setTotal] = useState<number>(0); // Total acumulado de la compra
 
-  // Función para agregar un artículo al carrito
   const agregarAlCarrito = (
     articulo: { id: number; titulo: string; precio: number },
     cantidad: number
@@ -26,40 +25,22 @@ function ParentComponent() {
     setArticulosCarrito((prev) => {
       const articuloExistente = prev.find((item) => item.id === articulo.id);
 
-      // Si el artículo ya existe, actualizamos la cantidad y recalculamos el total
       if (articuloExistente) {
-        // Actualizamos la cantidad del artículo
-        const nuevaCantidad = articuloExistente.cantidad + cantidad;
-
-        // Actualizamos el carrito y recalculamos el total
-        const nuevosArticulos = prev.map((item) =>
-          item.id === articulo.id ? { ...item, cantidad: nuevaCantidad } : item
-        );
-
-        // Recalculamos el total basado en la cantidad de items
-        const nuevoTotal = nuevosArticulos.reduce(
-          (acumulador, item) => acumulador + item.precio * item.cantidad,
-          0
-        );
-        setTotal(nuevoTotal);
-
-        return nuevosArticulos;
+        // Si el artículo ya existe, actualizamos la cantidad
+        articuloExistente.cantidad += cantidad;
       } else {
-        // Si el artículo no existe, lo agregamos al carrito
-        const nuevosArticulos = [...prev, { ...articulo, cantidad }];
-
-        // Recalculamos el total en el carrito
-        const nuevoTotal =
-          prev.reduce(
-            (acumulador, item) => acumulador + item.precio * item.cantidad,
-            0
-          ) +
-          articulo.precio * cantidad;
-
-        setTotal(nuevoTotal);
-
-        return nuevosArticulos;
+        // Si no existe, lo agregamos al carrito
+        prev.push({ ...articulo, cantidad });
       }
+
+      // Recalculamos el total
+      const nuevoTotal = prev.reduce(
+        (acumulador, item) => acumulador + item.precio * item.cantidad,
+        0
+      );
+      setTotal(nuevoTotal);
+
+      return [...prev];
     });
   };
 
