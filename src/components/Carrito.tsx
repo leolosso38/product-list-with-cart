@@ -15,7 +15,8 @@ type Props = {
   eliminarDelCarrito: (id: number) => void; // Función para eliminar un artículo del carrito
 };
 
-function Carrito({ articulos, total, eliminarDelCarrito }: Props) {
+function Carrito(props: Props) {
+  const { articulos, total, eliminarDelCarrito } = props;
   return (
     <div className="carrito-container col-md-2 mb-1">
       <div className="carrito card mb-2">

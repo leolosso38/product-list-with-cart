@@ -1,13 +1,13 @@
 // productos.ts
-import logoproducto1 from "./assets/images/image-waffle-desktop.jpg";
-import logoproducto2 from "./assets/images/image-creme-brulee-desktop.jpg";
-import logoproducto3 from "./assets/images/image-macaron-desktop.jpg";
-import logoproducto4 from "./assets/images/image-tiramisu-desktop.jpg";
-import logoproducto5 from "./assets/images/image-baklava-desktop.jpg";
-import logoproducto6 from "./assets/images/image-meringue-desktop.jpg";
-import logoproducto7 from "./assets/images/image-cake-desktop.jpg";
-import logoproducto8 from "./assets/images/image-brownie-desktop.jpg";
-import logoproducto9 from "./assets/images/image-panna-cotta-desktop.jpg";
+import logoproducto1 from "../assets/images/image-waffle-desktop.jpg";
+import logoproducto2 from "../assets/images/image-creme-brulee-desktop.jpg";
+import logoproducto3 from "../assets/images/image-macaron-desktop.jpg";
+import logoproducto4 from "../assets/images/image-tiramisu-desktop.jpg";
+import logoproducto5 from "../assets/images/image-baklava-desktop.jpg";
+import logoproducto6 from "../assets/images/image-meringue-desktop.jpg";
+import logoproducto7 from "../assets/images/image-cake-desktop.jpg";
+import logoproducto8 from "../assets/images/image-brownie-desktop.jpg";
+import logoproducto9 from "../assets/images/image-panna-cotta-desktop.jpg";
 
 export const productos = [
   {
