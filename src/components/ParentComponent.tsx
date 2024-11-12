@@ -18,10 +18,8 @@ function ParentComponent() {
   ); // Lista de artículos en el carrito
   const [total, setTotal] = useState<number>(0); // Total acumulado de la compra
 
-  const agregarAlCarrito = (
-    articulo: { id: number; titulo: string; precio: number },
-    cantidad: number
-  ) => {
+  const agregarAlCarrito = (articulo: { id: number; titulo: string; precio: number }, cantidad: number) => {
+
     setArticulosCarrito((prev) => {
       const articuloExistente = prev.find((item) => item.id === articulo.id);
 
@@ -44,20 +42,18 @@ function ParentComponent() {
     });
   };
 
-  // Función para eliminar un artículo del carrito
+  // Función para eliminar un artículo del carrito, Filtramos el artículo que queremos eliminar
   const eliminarDelCarrito = (id: number) => {
     setArticulosCarrito((prev) => {
-      // Filtramos el artículo que queremos eliminar
-      const articulosActualizados = prev.filter(
-        (articuloCarrito) => articuloCarrito.id !== id
+      const articulosActualizados = prev.filter((articuloCarrito) => articuloCarrito.id !== id
       );
 
+
+
       // Recalculamos el total basado en los artículos restantes
-      const nuevoTotal = articulosActualizados.reduce(
-        (acumulador, articulo) =>
-          acumulador + articulo.precio * articulo.cantidad,
-        0
-      );
+      const nuevoTotal = articulosActualizados.reduce((acumulador, articulo) =>
+        acumulador + articulo.precio * articulo.cantidad,
+        0);
 
       setTotal(nuevoTotal); // Actualizamos el total
       return articulosActualizados;
