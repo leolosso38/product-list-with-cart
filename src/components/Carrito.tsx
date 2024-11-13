@@ -13,10 +13,11 @@ type Props = {
   articulos: ArticuloCarrito[]; // Lista de artículos en el carrito
   total: number; // Total acumulado de la compra
   eliminarDelCarrito: (id: number) => void; // Función para eliminar un artículo del carrito
+  toggleCarrito: () => void;
 };
 
 function Carrito(props: Props) {
-  const { articulos, total, eliminarDelCarrito } = props;
+  const { articulos, total, eliminarDelCarrito, toggleCarrito } = props;
   return (
     <div className="carrito-container col-md-2 mb-1">
       <div className="carrito card mb-2">
@@ -60,6 +61,11 @@ function Carrito(props: Props) {
               <div className="carrito-contenedor-total">
                 <h3 className="carrito-total mt-3">Total de la Orden:</h3>
                 <p className="carrito-precio">${total.toFixed(2)}</p>
+              </div>
+              <div>
+                <button className="btn-cart btn btn-danger btn-sm" onClick={toggleCarrito}>
+                  orden
+                </button>
               </div>
             </div>
           )}

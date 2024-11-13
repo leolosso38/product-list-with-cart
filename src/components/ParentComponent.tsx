@@ -2,6 +2,7 @@ import { useState } from "react";
 import { productos } from "../Data/Productos";
 import Carrito from "./Carrito";
 import Card from "./Card";
+import Order from "./Order";
 
 // Definición de la interfaz para los artículos del carrito
 type ArticuloCarrito = {
@@ -12,52 +13,51 @@ type ArticuloCarrito = {
 };
 
 function ParentComponent() {
-  // Estado para almacenar los artículos en el carrito y el total
-  const [articulosCarrito, setArticulosCarrito] = useState<ArticuloCarrito[]>(
-    []
-  ); // Lista de artículos en el carrito
-  const [total, setTotal] = useState<number>(0); // Total acumulado de la compra
+  // Estado para artículos en el carrito y el total
+  const [articulosCarrito, setArticulosCarrito] = useState<ArticuloCarrito[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [mostrarCarrito, setMostrarCarrito] = useState(false);
 
+  // Función para manejar el clic del botón y alternar la visibilidad del carrito
+  const toggleCarrito = () => {
+    setMostrarCarrito(!mostrarCarrito);
+    console.log("Confirmar orden");
+  };
+
+  // Función para agregar un artículo al carrito
   const agregarAlCarrito = (articulo: { id: number; titulo: string; precio: number }, cantidad: number) => {
-
     setArticulosCarrito((prev) => {
       const articuloExistente = prev.find((item) => item.id === articulo.id);
 
       if (articuloExistente) {
-        // Si el artículo ya existe, actualizamos la cantidad
+        // Actualizamos la cantidad si el artículo ya existe
         articuloExistente.cantidad += cantidad;
       } else {
-        // Si no existe, lo agregamos al carrito
+        // Agregamos el artículo si no existe
         prev.push({ ...articulo, cantidad });
       }
 
-      // Recalculamos el total
-      const nuevoTotal = prev.reduce(
-        (acumulador, item) => acumulador + item.precio * item.cantidad,
-        0
-      );
+      // Recalcular el total
+      const nuevoTotal = recalcularTotal(prev);
       setTotal(nuevoTotal);
 
       return [...prev];
     });
   };
 
-  // Función para eliminar un artículo del carrito, Filtramos el artículo que queremos eliminar
+  // Función para eliminar un artículo del carrito
   const eliminarDelCarrito = (id: number) => {
     setArticulosCarrito((prev) => {
-      const articulosActualizados = prev.filter((articuloCarrito) => articuloCarrito.id !== id
-      );
-
-
-
-      // Recalculamos el total basado en los artículos restantes
-      const nuevoTotal = articulosActualizados.reduce((acumulador, articulo) =>
-        acumulador + articulo.precio * articulo.cantidad,
-        0);
-
-      setTotal(nuevoTotal); // Actualizamos el total
+      const articulosActualizados = prev.filter((articuloCarrito) => articuloCarrito.id !== id);
+      const nuevoTotal = recalcularTotal(articulosActualizados);
+      setTotal(nuevoTotal);
       return articulosActualizados;
     });
+  };
+
+  // Función  para recalcular el total
+  const recalcularTotal = (articulos: ArticuloCarrito[]): number => {
+    return articulos.reduce((acumulador, articulo) => acumulador + articulo.precio * articulo.cantidad, 0);
   };
 
   return (
@@ -67,6 +67,7 @@ function ParentComponent() {
         articulos={articulosCarrito}
         total={total}
         eliminarDelCarrito={eliminarDelCarrito}
+        toggleCarrito={toggleCarrito}
       />
       <div className="row">
         {productos.map(({ id, src, titulo, subtitle, price }) => (
@@ -77,20 +78,13 @@ function ParentComponent() {
               titulo={titulo}
               subtitulo={subtitle}
               precio={price}
-              onAddToCart={(cantidad: number) =>
-                agregarAlCarrito(
-                  {
-                    id: id,
-                    titulo: titulo,
-                    precio: price,
-                  },
-                  cantidad
-                )
-              }
+              onAddToCart={(cantidad: number) => agregarAlCarrito({ id, titulo, precio: price }, cantidad)}
             />
           </div>
         ))}
       </div>
+      {/* Mostrar el componente Order si el estado mostrarCarrito es true */}
+      <div>{mostrarCarrito && <Order />}</div>
     </div>
   );
 }
