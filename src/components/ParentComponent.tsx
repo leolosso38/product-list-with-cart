@@ -59,7 +59,11 @@ function ParentComponent() {
   const recalcularTotal = (articulos: ArticuloCarrito[]): number => {
     return articulos.reduce((acumulador, articulo) => acumulador + articulo.precio * articulo.cantidad, 0);
   };
-
+  const reiniciarCarrito = () => {
+    setArticulosCarrito([]);
+    setTotal(0);
+    setMostrarCarrito(false);
+  };
   return (
     <div className="container">
       {/* Renderizamos el carrito de compras */}
@@ -84,7 +88,11 @@ function ParentComponent() {
         ))}
       </div>
       {/* Mostrar el componente Order si el estado mostrarCarrito es true */}
-      <div>{mostrarCarrito && <Order />}</div>
+      <div>{mostrarCarrito && <Order
+        articulos={articulosCarrito}
+        total={total}
+        reiniciarCarrito={reiniciarCarrito}  // Pasamos la función para reiniciar el carrito
+      />}</div>
     </div>
   );
 }

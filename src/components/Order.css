@@ -1,0 +1,33 @@
+.order-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Fijo para que se quede en su lugar */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+
+  padding: 20px;
+}
+.order-header {
+  background-color: rgba(255, 255, 255, 255);
+  text-align: center;
+  color: brown;
+}
+.card {
+  width: 100%;
+  max-width: 30em; /* Limitar el tamaño máximo */
+}
+.order-body {
+  margin: 20px;
+  align-items: center;
+  text-align: center;
+}
+.btn-order {
+  margin: 20px;
+  align-items: center;
+  text-align: center;
+  margin-left: 5em;
+}
