@@ -25,32 +25,28 @@ function ParentComponent() {
   };
 
   // Función para agregar un artículo al carrito
-  const carrito = (articulo: { id: number; titulo: string; precio: number }, cantidad: number) => {
+  const agregarAlCarrito = (articulo: { id: number; titulo: string; precio: number }, cantidad: number) => {
     setArticulosCarrito((prev) => {
       const articuloExistente = prev.find((item) => item.id === articulo.id);
 
       if (articuloExistente) {
+        // Si la cantidad es 0 o menos, eliminamos el artículo
         if (cantidad <= 0) {
           return prev.filter((item) => item.id !== articulo.id);
         } else {
-          // Actualizamos la cantidad si el artículo ya existe
-          articuloExistente.cantidad = cantidad + 1;
-
+          // De lo contrario, actualizamos la cantidad
+          articuloExistente.cantidad = cantidad;
         }
-
       } else if (cantidad > 0) {
-        // Agregamos el artículo si no existe
+        // Si el artículo no está en el carrito y la cantidad es mayor que 0, lo agregamos
         prev.push({ ...articulo, cantidad });
       }
-
       // Recalcular el total
       const nuevoTotal = recalcularTotal(prev);
       setTotal(nuevoTotal);
 
       return [...prev];
     });
-    //Actualizamos el estado para indicar que hay algo en el carrito
-
   };
 
   // Función para eliminar un artículo del carrito
@@ -71,7 +67,6 @@ function ParentComponent() {
     setArticulosCarrito([]);
     setTotal(0);
     setMostrarCarrito(false);
-
   };
   return (
     <div className="container">
@@ -91,7 +86,7 @@ function ParentComponent() {
               titulo={titulo}
               subtitulo={subtitle}
               precio={price}
-              onAddToCart={(cantidad: number) => carrito({ id, titulo, precio: price }, cantidad)}
+              onAddToCart={(cantidad: number) => agregarAlCarrito({ id, titulo, precio: price }, cantidad)}
             />
           </div>
         ))}

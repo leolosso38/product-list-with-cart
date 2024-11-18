@@ -15,7 +15,7 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
   // Función para agregar al carrito
   const agregarAlCarrito = () => {
     setEnCarrito(true);
-    onAddToCart(cantidad);
+    onAddToCart(1);
     // Llamada al callback para agregar al carrito
   };
 
@@ -27,7 +27,7 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
 
       return nuevaCantidad;
     });
-    onAddToCart(cantidad);
+    onAddToCart(cantidad + 1);
     // Llamamos a `onAddToCart` fuera de `setCantidad`
   };
 
