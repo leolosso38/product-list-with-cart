@@ -24,7 +24,7 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
     setCantidad((cantidad) => {
       const nuevaCantidad = cantidad + 1;
 
-      console.log(nuevaCantidad);
+
       return nuevaCantidad;
     });
     onAddToCart(cantidad);
@@ -34,14 +34,14 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
   // Función para disminuir la cantidad de la tarjeta
   const disminuir = () => {
     setCantidad((cantidad) => {
-      const nuevaCantidad = cantidad - 1;
-      console.log(nuevaCantidad);
+      const nuevaCantidad = Math.max(cantidad - 1, 1);
+
       return nuevaCantidad;
     });
     onAddToCart(cantidad - 1);
     // Llamamos a `onAddToCart` fuera de `setCantidad`
     if (cantidad > 1) {
-      onAddToCart(cantidad - 1);
+      onAddToCart(cantidad - 2);
     } else {
       setEnCarrito(false);
     }
@@ -58,7 +58,7 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
           >
             -
           </button>
-          <span>{cantidad}</span>
+          <span className="cantidad">{cantidad}</span>
           <button
             className="btn-cart-incremento btn btn-outline-danger btn-sm"
             onClick={incrementar}

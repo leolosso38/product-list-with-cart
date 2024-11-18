@@ -43,6 +43,8 @@ function ParentComponent() {
 
       return [...prev];
     });
+    //Actualizamos el estado para indicar que hay algo en el carrito
+
   };
 
   // Función para eliminar un artículo del carrito
@@ -63,6 +65,7 @@ function ParentComponent() {
     setArticulosCarrito([]);
     setTotal(0);
     setMostrarCarrito(false);
+
   };
   return (
     <div className="container">
