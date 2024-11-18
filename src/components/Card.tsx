@@ -33,8 +33,8 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
 
   // Función para disminuir la cantidad de la tarjeta
   const disminuir = () => {
-    setCantidad((cantidadActual) => {
-      const nuevaCantidad = Math.max(cantidadActual - 2, 1);
+    setCantidad((cantidad) => {
+      const nuevaCantidad = cantidad - 1;
       console.log(nuevaCantidad);
       return nuevaCantidad;
     });

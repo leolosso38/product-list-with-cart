@@ -16,8 +16,8 @@ type Props = {
   toggleCarrito: () => void;
 };
 
-function Carrito(props: Props) {
-  const { articulos, total, eliminarDelCarrito, toggleCarrito } = props;
+function Carrito({ articulos, total, eliminarDelCarrito, toggleCarrito }: Props) {
+
   return (
     <div className="carrito-container col-md-2 mb-1">
       <div className="carrito card mb-2">

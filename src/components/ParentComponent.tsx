@@ -25,13 +25,13 @@ function ParentComponent() {
   };
 
   // Función para agregar un artículo al carrito
-  const agregarAlCarrito = (articulo: { id: number; titulo: string; precio: number }, cantidad: number) => {
+  const carrito = (articulo: { id: number; titulo: string; precio: number }, cantidad: number) => {
     setArticulosCarrito((prev) => {
       const articuloExistente = prev.find((item) => item.id === articulo.id);
 
       if (articuloExistente) {
         // Actualizamos la cantidad si el artículo ya existe
-        articuloExistente.cantidad += cantidad;
+        articuloExistente.cantidad = cantidad + 1;
       } else {
         // Agregamos el artículo si no existe
         prev.push({ ...articulo, cantidad });
@@ -82,7 +82,7 @@ function ParentComponent() {
               titulo={titulo}
               subtitulo={subtitle}
               precio={price}
-              onAddToCart={(cantidad: number) => agregarAlCarrito({ id, titulo, precio: price }, cantidad)}
+              onAddToCart={(cantidad: number) => carrito({ id, titulo, precio: price }, cantidad)}
             />
           </div>
         ))}
