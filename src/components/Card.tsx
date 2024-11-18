@@ -40,10 +40,15 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
     });
     onAddToCart(cantidad - 1);
     // Llamamos a `onAddToCart` fuera de `setCantidad`
-    if (cantidad > 1) {
-      onAddToCart(cantidad - 2);
-    } else {
+    if (cantidad <= 1) {
       setEnCarrito(false);
+      onAddToCart(0)
+
+
+    }
+    else {
+
+      onAddToCart(cantidad - 2);
     }
   };
 

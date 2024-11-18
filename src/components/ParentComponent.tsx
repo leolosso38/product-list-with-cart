@@ -30,9 +30,15 @@ function ParentComponent() {
       const articuloExistente = prev.find((item) => item.id === articulo.id);
 
       if (articuloExistente) {
-        // Actualizamos la cantidad si el artículo ya existe
-        articuloExistente.cantidad = cantidad + 1;
-      } else {
+        if (cantidad <= 0) {
+          return prev.filter((item) => item.id !== articulo.id);
+        } else {
+          // Actualizamos la cantidad si el artículo ya existe
+          articuloExistente.cantidad = cantidad + 1;
+
+        }
+
+      } else if (cantidad > 0) {
         // Agregamos el artículo si no existe
         prev.push({ ...articulo, cantidad });
       }
