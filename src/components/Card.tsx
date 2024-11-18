@@ -21,36 +21,28 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
 
   // Función para incrementar la cantidad
   const incrementar = () => {
-    setCantidad((cantidad) => {
-      const nuevaCantidad = cantidad + 1;
-
-
-      return nuevaCantidad;
-    });
-    onAddToCart(cantidad + 1);
-    // Llamamos a `onAddToCart` fuera de `setCantidad`
+    setCantidad(cantidad + 1); // Solo aumentamos la cantidad en 1
+    onAddToCart(cantidad + 1); // Actualizamos la cantidad correctamente
   };
+
+
+
 
   // Función para disminuir la cantidad de la tarjeta
   const disminuir = () => {
-    setCantidad((cantidad) => {
-      const nuevaCantidad = Math.max(cantidad - 1, 1);
+    const nuevaCantidad = Math.max(cantidad - 1, 1); // Aseguramos que no baje de 1
+    setCantidad(nuevaCantidad);
+    onAddToCart(nuevaCantidad); // Actualizamos la cantidad correctamente
 
-      return nuevaCantidad;
-    });
-    onAddToCart(cantidad - 1);
-    // Llamamos a `onAddToCart` fuera de `setCantidad`
-    if (cantidad <= 1) {
+    if (nuevaCantidad === 1) {
       setEnCarrito(false);
       onAddToCart(0)
-
-
     }
-    else {
 
-      onAddToCart(cantidad - 2);
-    }
+
   };
+
+
 
   return (
     <div className="card">
