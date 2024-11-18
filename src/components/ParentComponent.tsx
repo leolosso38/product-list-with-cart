@@ -4,7 +4,8 @@ import { productos } from "../Data/Productos";
 import Carrito from "./Carrito";
 import Card from "./Card";
 import Order from "./Order";
-
+import { reiniciarCarrito } from "../Services/reiniciarCarrito"
+import { toggleCarrito } from "../Services/toggleCarrito";
 // Definición de la interfaz para los artículos del carrito
 type ArticuloCarrito = {
   id: number;
@@ -20,13 +21,10 @@ function ParentComponent() {
   const [mostrarCarrito, setMostrarCarrito] = useState(false);
   const [reiniciarTarjetas, setReiniciarTarjetas] = useState(false);
 
-  // Función para manejar el clic del botón y alternar la visibilidad del carrito
-  const toggleCarrito = () => {
-    setMostrarCarrito(!mostrarCarrito);
-    console.log("Confirmar orden"); // Mensaje de confirmación para ver si el carrito se muestra
-  };
+
 
   // Función para agregar un artículo al carrito
+
   const agregarAlCarrito = (articulo: { id: number; titulo: string; precio: number }, cantidad: number) => {
     setArticulosCarrito((prev) => {
       const articuloExistente = prev.find((item) => item.id === articulo.id); // Buscamos si el artículo ya existe en el carrito
@@ -68,13 +66,7 @@ function ParentComponent() {
     return articulos.reduce((acumulador, articulo) => acumulador + articulo.precio * articulo.cantidad, 0);
   };
 
-  // Función para reiniciar el carrito, reseteando los estados a sus valores iniciales
-  const reiniciarCarrito = () => {
-    setArticulosCarrito([]); // Limpiamos el carrito
-    setTotal(0); // Reiniciamos el total
-    setMostrarCarrito(false); // Ocultamos el carrito
-    setReiniciarTarjetas(true)
-  };
+
 
   return (
     <div className="container">
@@ -83,7 +75,7 @@ function ParentComponent() {
         articulos={articulosCarrito}
         total={total}
         eliminarDelCarrito={eliminarDelCarrito}
-        toggleCarrito={toggleCarrito}
+        toggleCarrito={() => toggleCarrito(setMostrarCarrito)} //importo la funcion
       />
 
       {/* Renderizamos las tarjetas de productos */}
@@ -107,7 +99,8 @@ function ParentComponent() {
       <div>{mostrarCarrito && <Order
         articulos={articulosCarrito}
         total={total}
-        reiniciarCarrito={reiniciarCarrito}  // Pasamos la función para reiniciar el carrito
+        //reiniciarCarrito={reiniciarCarrito} 
+        reiniciarCarrito={() => reiniciarCarrito(setArticulosCarrito, setTotal, setMostrarCarrito, setReiniciarTarjetas)}//llamo a la funcion reiniciar carrito
       />}</div>
     </div>
   );

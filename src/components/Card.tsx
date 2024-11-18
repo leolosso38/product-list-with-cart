@@ -16,7 +16,7 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart, reiniciar }: Car
   // Estado para gestionar la cantidad de producto que se va a agregar al carrito
 
 
-
+  //reincio tarjetas
   const [cantidad, setCantidad] = useState(1);
   useEffect(() => {
     if (reiniciar) {
