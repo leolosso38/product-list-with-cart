@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Definimos la interfaz para las props que recibirá el componente Card
 interface CardProps {
@@ -6,15 +6,24 @@ interface CardProps {
   titulo: string; // Título del producto
   subtitulo: string; // Subtítulo o descripción corta del producto
   precio: number; // Precio del producto
+  reiniciar: boolean;
   onAddToCart: (cantidad: number) => void; // Callback para manejar la cantidad del artículo en el carrito
 }
 
-function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
+function Card({ imagen, titulo, subtitulo, precio, onAddToCart, reiniciar }: CardProps) {
   // Estado para verificar si el producto está en el carrito
   const [enCarrito, setEnCarrito] = useState(false);
   // Estado para gestionar la cantidad de producto que se va a agregar al carrito
-  const [cantidad, setCantidad] = useState(1);
 
+
+
+  const [cantidad, setCantidad] = useState(1);
+  useEffect(() => {
+    if (reiniciar) {
+      setEnCarrito(false);
+      setCantidad(1);
+    }
+  }, [reiniciar]);
   // Función que se ejecuta cuando el usuario agrega el artículo al carrito
   const agregarAlCarrito = () => {
     setEnCarrito(true); // Marcamos que el producto está en el carrito
@@ -40,6 +49,7 @@ function Card({ imagen, titulo, subtitulo, precio, onAddToCart }: CardProps) {
       onAddToCart(0); // Llamamos al callback con 0 para quitar el producto del carrito
     }
   };
+
 
   return (
     <div className="card">

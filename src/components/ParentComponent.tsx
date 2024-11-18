@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { productos } from "../Data/Productos";
 import Carrito from "./Carrito";
@@ -17,6 +18,7 @@ function ParentComponent() {
   const [articulosCarrito, setArticulosCarrito] = useState<ArticuloCarrito[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [mostrarCarrito, setMostrarCarrito] = useState(false);
+  const [reiniciarTarjetas, setReiniciarTarjetas] = useState(false);
 
   // Función para manejar el clic del botón y alternar la visibilidad del carrito
   const toggleCarrito = () => {
@@ -71,6 +73,7 @@ function ParentComponent() {
     setArticulosCarrito([]); // Limpiamos el carrito
     setTotal(0); // Reiniciamos el total
     setMostrarCarrito(false); // Ocultamos el carrito
+    setReiniciarTarjetas(true)
   };
 
   return (
@@ -94,6 +97,7 @@ function ParentComponent() {
               precio={price}
               // Al hacer clic en "Agregar al carrito", actualizamos el carrito con la cantidad seleccionada
               onAddToCart={(cantidad: number) => agregarAlCarrito({ id, titulo, precio: price }, cantidad)}
+              reiniciar={reiniciarTarjetas}
             />
           </div>
         ))}
