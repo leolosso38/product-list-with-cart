@@ -5,7 +5,7 @@ import Carrito from "./Carrito";
 import Card from "./Card";
 import Order from "./Order";
 import { reiniciarCarrito } from "../Services/reiniciarCarrito"
-import { toggleCarrito } from "../Services/toggleCarrito";
+import { visualizarCarrito } from "../Services/visualizarCarrito";
 // Definición de la interfaz para los artículos del carrito
 type ArticuloCarrito = {
   id: number;
@@ -75,7 +75,7 @@ function ParentComponent() {
         articulos={articulosCarrito}
         total={total}
         eliminarDelCarrito={eliminarDelCarrito}
-        toggleCarrito={() => toggleCarrito(setMostrarCarrito)} //importo la funcion
+        toggleCarrito={() => visualizarCarrito(setMostrarCarrito)} //importo la funcion
       />
 
       {/* Renderizamos las tarjetas de productos */}
