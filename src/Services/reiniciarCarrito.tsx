@@ -8,8 +8,6 @@ type ArticuloCarrito = {
   precio: number;
 };
 
-
-
 export const reiniciarCarrito = (
   setArticulosCarrito: SetState<ArticuloCarrito[]>, // Actualiza el carrito
   setTotal: SetState<number>, // Actualiza el total
