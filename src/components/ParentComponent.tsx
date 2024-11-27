@@ -81,8 +81,10 @@ function ParentComponent() {
       {/* Renderizamos las tarjetas de productos */}
       <div className="row">
         {productos.map(({ id, src, titulo, subtitle, price }) => (
-          <div key={id} className="card-contenedor col-md-3 mb-1">
+
+          < div key={id} className="card-contenedor col-md-3 mb-3" >
             <Card
+
               imagen={src}
               titulo={titulo}
               subtitulo={subtitle}
@@ -102,8 +104,9 @@ function ParentComponent() {
         //reiniciarCarrito={reiniciarCarrito} 
         reiniciarCarrito={() => reiniciarCarrito(setArticulosCarrito, setTotal, setMostrarCarrito, setReiniciarTarjetas)}//llamo a la funcion reiniciar carrito
       />}</div>
-    </div>
+    </div >
   );
 }
 
-export default ParentComponent;
+
+export default ParentComponent
